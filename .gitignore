@@ -218,3 +218,21 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local Python environment
+.venv/
+venv/
+
+# PyCharm settings
+.idea/
+
+# Datasets: keep instructions, ignore image files
+data/*
+!data/README.md
+
+# Generated results
+results/*
+!results/README.md
+
+# macOS
+.DS_Store
