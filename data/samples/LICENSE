@@ -1,0 +1,52 @@
+LICENSE Agreement of BlueNeg Data Set version 1.0
+-------------------------------------------------
+Dated: 2024-06-12
+License document prepared by Tien-Tsin Wong
+
+All photographs/negatives in this data set are owned and 
+copyrighted by Tien-Tsin Wong.
+
+
+Why BlueNeg?
+------------
+This set of images is collected for studying the research problem of 
+restoring the corrupted negative films. Due to the physical nature of 
+negative film, the red, green, and blue light-sensitive layers are 
+located differently inside the negative film. Therefore, the rates of 
+deterioration of these three layers are different. I found that the 
+blue channel is relatively vulnerable compared to the other two channels.
+Because the blue light-sensitive layer is on the outermost layer on 
+the emulsion side. That is, the deterioration rates are heterogeneous.
+This characteristic is inherited from its ancestor, i.e., storing the 
+three color negatives (R, G, B) on three separate glass plates by 
+Prokudin-Gorsky. 
+
+Since the blue channel is more vulnerable and the other two channels 
+are relatively well-preserved, this means we can restore the blue 
+channel by exploiting the retained information from the red and green 
+channels to restore the color photograph. This is especially sound with
+the latest AI technologies. 
+
+Unfortunately, most existing photo restoration techniques are 
+developed based on printed photographs, in which the nature
+of deterioration is different from that of the negatives. 
+This is why I have scanned a collection of negatives I have shot
+during 1980s to early 2000, for this research.
+
+
+How to Obtain Permission?
+-------------------------
+
+All photos are owned and copyrighted by Tien-Tsin Wong. You are 
+automatically granted with permission to use the images for academic 
+and commerical usages, provided that the image credit 
+"Copyrighted by Tien-Tsin Wong" is included in any forms of 
+publication, reproduction, redistribution, or derivatives of the images.
+
+If you find the dataset is useful to you, please also cite our 
+publication below in your work/publication. 
+
+- Hanyuan Liu, Chengze Li, Minshan Xie, Zhenni Wang, Jiawen Liang, Chi-Sing Leung, and Tien-Tsin Wong,
+  "BlueNeg: BlueNeg: A 35mm Negative Film Dataset for Restoring Channel-Heterogeneous Deterioration", 
+  arXiv preprint, 2024.
+ 
