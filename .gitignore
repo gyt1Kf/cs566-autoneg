@@ -229,6 +229,7 @@ venv/
 # Datasets: keep instructions, ignore image files
 data/*
 !data/README.md
+!data/samples/
 
 # Generated results
 results/*
