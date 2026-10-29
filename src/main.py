@@ -17,7 +17,7 @@ from color_correction import correct_color_exposure, save_rgb
 def run_pipeline(
     input_path,
     output_path,
-    encoding="srgb",
+    encoding="linear",
     base_roi=None,
     range_roi=None,
     saturation=1.2,
@@ -63,8 +63,8 @@ def main():
     parser.add_argument(
         "--encoding",
         choices=["srgb", "linear"],
-        default="srgb",
-        help="Input transfer function (default: srgb)",
+        default="linear",
+        help="Input transfer function (default: linear, matches dng_to_png.py output)",
     )
     parser.add_argument(
         "--base-roi",

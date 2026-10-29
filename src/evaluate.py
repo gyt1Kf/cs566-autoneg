@@ -6,6 +6,7 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+from skimage.color import deltaE_ciede2000, rgb2lab
 from skimage.metrics import peak_signal_noise_ratio, structural_similarity
 
 from color_correction import correct_color_exposure, save_rgb
@@ -49,7 +50,16 @@ def align(image, reference, homography):
 def scores(image, reference):
     psnr = peak_signal_noise_ratio(reference, image)
     ssim = structural_similarity(reference, image, channel_axis=2)
-    return psnr, ssim
+    lab_image, lab_reference = rgb2lab(image), rgb2lab(reference)
+    delta_e = deltaE_ciede2000(lab_reference, lab_image).mean()
+    # Chroma-only error ignores lightness, isolating color cast from tone curve.
+    chroma = np.linalg.norm(lab_image[..., 1:] - lab_reference[..., 1:], axis=2).mean()
+    return psnr, ssim, delta_e, chroma
+
+
+def format_scores(values):
+    psnr, ssim, delta_e, chroma = values
+    return f"PSNR {psnr:.2f} SSIM {ssim:.3f} dE00 {delta_e:.2f} dab {chroma:.2f}"
 
 
 def main():
@@ -76,19 +86,18 @@ def main():
         before = align(before, reference, homography)
         after = align(after, reference, homography)
 
-        psnr_before, ssim_before = scores(before, reference)
-        psnr_after, ssim_after = scores(after, reference)
-        rolls[name.split("-")[0]].append((psnr_before, ssim_before, psnr_after, ssim_after))
-        print(f"{name}: before PSNR {psnr_before:.2f} SSIM {ssim_before:.3f} | "
-              f"after PSNR {psnr_after:.2f} SSIM {ssim_after:.3f}")
+        score_before = scores(before, reference)
+        score_after = scores(after, reference)
+        rolls[name.split("-")[0]].append(score_before + score_after)
+        print(f"{name}: before {format_scores(score_before)} | after {format_scores(score_after)}")
 
         save_rgb(args.output / f"{name}.corrected.png", after)
 
     print()
     for roll, values in sorted(rolls.items()):
         mean = np.mean(values, axis=0)
-        print(f"{roll} ({len(values)} images): before PSNR {mean[0]:.2f} SSIM {mean[1]:.3f} | "
-              f"after PSNR {mean[2]:.2f} SSIM {mean[3]:.3f}")
+        print(f"{roll} ({len(values)} images): before {format_scores(mean[:4])} | "
+              f"after {format_scores(mean[4:])}")
 
 
 if __name__ == "__main__":

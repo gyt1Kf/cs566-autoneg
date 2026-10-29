@@ -1,3 +1,1 @@
-# Results
-
-Save generated images, visual comparisons, and evaluation outputs here.
+Generated outputs go here. See the main README.
